@@ -123,7 +123,7 @@ fun BookingForm(navController: NavController, modifier: Modifier = Modifier) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
-                    onClick = { /* Handle search action */ },
+                    onClick = { navController.navigate("jadwal") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(50.dp),

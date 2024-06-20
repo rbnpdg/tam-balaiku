@@ -76,22 +76,6 @@
                             Text("soewarnaandi@balaiku.com", style = MaterialTheme.typography.bodyMedium)
                         }
                     }
-
-                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier .offset(y = 100.dp)) {
-                        Image(
-                            painter = painterResource(id = R.drawable.edit), // Replace with your drawable resource
-                            contentDescription = "edit pic",
-                            modifier = Modifier
-                                .size(40.dp)
-                                .offset(x = 12.dp)
-                        )
-                        Spacer(modifier = Modifier.width(36.dp))
-                        Column {
-                            Text(
-                                "Edit Profil"
-                            )
-                        }
-                    }
                 }
             }
             Box(
