@@ -20,8 +20,8 @@ import androidx.navigation.NavController
 
 @Composable
 fun BookingForm(navController: NavController, modifier: Modifier = Modifier) {
-    var checkInDate by remember { mutableStateOf("07.08.2017") }
-    var checkOutDate by remember { mutableStateOf("07.08.2017") }
+    var checkInDate by remember { mutableStateOf("") }
+    var checkOutDate by remember { mutableStateOf("") }
     val openCheckInDialog = remember { mutableStateOf(false) }
     val openCheckOutDialog = remember { mutableStateOf(false) }
     var nama by remember { mutableStateOf("") }
