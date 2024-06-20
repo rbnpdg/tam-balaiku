@@ -63,7 +63,7 @@ fun HomePage(navController: NavController, modifier: Modifier = Modifier){
                     .padding(10.dp)
                     .clickable { navController.navigate("home_page") }
             )
-            Spacer(modifier = Modifier.width(40.dp))
+            Spacer(modifier = Modifier.width(20.dp))
             Image(
                 painter = painterResource(id = R.drawable.booking),
                 contentDescription = null,
@@ -72,7 +72,7 @@ fun HomePage(navController: NavController, modifier: Modifier = Modifier){
                     .padding(10.dp)
                     .clickable { navController.navigate("Booking") }
             )
-            Spacer(modifier = Modifier.width(40.dp))
+            Spacer(modifier = Modifier.width(20.dp))
             Image(
                 painter = painterResource(id = R.drawable.schedule),
                 contentDescription = null,
@@ -80,6 +80,15 @@ fun HomePage(navController: NavController, modifier: Modifier = Modifier){
                     .size(60.dp)
                     .padding(10.dp)
                     .clickable { navController.navigate("jadwal") }
+            )
+            Spacer(modifier = Modifier.width(20.dp))
+            Image(
+                painter = painterResource(id = R.drawable.user),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(60.dp)
+                    .padding(10.dp)
+                    .clickable { navController.navigate("profile")}
             )
         }
     }

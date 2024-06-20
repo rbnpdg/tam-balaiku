@@ -20,6 +20,7 @@ class MainActivity : ComponentActivity() {
                     composable("forgot_password") { ForgotPasswordForm(navController) }
                     composable("home_page") { HomePage(navController) }
                     composable("jadwal") { Jadwal(navController) }
+                    composable("profile") { Profile(navController) }
                     composable("Booking") { BookingForm(navController) }
                 }
             }

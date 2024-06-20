@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun BookingForm(navController: NavController) {
+fun BookingForm(navController: NavController, modifier: Modifier = Modifier) {
     var checkInDate by remember { mutableStateOf("07.08.2017") }
     var checkOutDate by remember { mutableStateOf("07.08.2017") }
     val openCheckInDialog = remember { mutableStateOf(false) }
@@ -32,87 +32,105 @@ fun BookingForm(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFF1F5F8)),
-        contentAlignment = Alignment.Center
     ) {
-        Column(
-            modifier = Modifier
-                .width(300.dp)
-                .background(Color.White, shape = RoundedCornerShape(10.dp))
-                .padding(16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = "Book Balai Desa",
-                fontSize = 24.sp,
-                color = Color(0xFF164863),
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
 
-            OutlinedTextField(
-                value = nama,
-                onValueChange = { nama = it },
-                label = { Text("Nama") },
-                modifier = Modifier.fillMaxWidth()
-            )
+        Column {
 
-            Spacer(modifier = Modifier.height(8.dp))
-
-            OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
-                label = { Text("Email") },
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                OutlinedTextField(
-                    value = checkInDate,
-                    onValueChange = { checkInDate = it },
-                    label = { Text("Check In") },
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    modifier = Modifier.weight(1f).clickable { openCheckInDialog.value = true }
-                )
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                OutlinedTextField(
-                    value = checkOutDate,
-                    onValueChange = { checkOutDate = it },
-                    label = { Text("Check Out") },
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    modifier = Modifier.weight(1f).clickable { openCheckOutDialog.value = true }
-                )
-
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            OutlinedTextField(
-                value = agenda,
-                onValueChange = { agenda = it },
-                label = { Text("Agenda") },
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                onClick = { /* Handle search action */ },
+            Image(painter = painterResource(id = R.drawable.logo_balaiku), contentDescription = "Logo",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(50.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF164863))
+                    .background(Color.LightGray)
+                    .offset(y = 2.dp), alignment = Alignment.Center)
+        }
+
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16. dp)
+                .align(Alignment.Center)
+        ){
+            Column(
+                modifier = Modifier
+                    .width(300.dp)
+                    .background(Color.White, shape = RoundedCornerShape(10.dp))
+                    .padding(16.dp)
+                    .align(Alignment.CenterHorizontally),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "CONFIRM", color = Color.White)
+                Text(
+                    text = "Book Balai Desa",
+                    fontSize = 24.sp,
+                    color = Color(0xFF164863),
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+
+                OutlinedTextField(
+                    value = nama,
+                    onValueChange = { nama = it },
+                    label = { Text("Nama") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Email") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    OutlinedTextField(
+                        value = checkInDate,
+                        onValueChange = { checkInDate = it },
+                        label = { Text("Check In") },
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                        modifier = Modifier.weight(1f).clickable { openCheckInDialog.value = true }
+                    )
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    OutlinedTextField(
+                        value = checkOutDate,
+                        onValueChange = { checkOutDate = it },
+                        label = { Text("Check Out") },
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                        modifier = Modifier.weight(1f).clickable { openCheckOutDialog.value = true }
+                    )
+
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                OutlinedTextField(
+                    value = agenda,
+                    onValueChange = { agenda = it },
+                    label = { Text("Agenda") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(
+                    onClick = { /* Handle search action */ },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF164863))
+                ) {
+                    Text(text = "CONFIRM", color = Color.White)
+                }
             }
         }
 
@@ -132,7 +150,7 @@ fun BookingForm(navController: NavController) {
                     .padding(10.dp)
                     .clickable { navController.navigate("home_page") }
             )
-            Spacer(modifier = Modifier.width(40.dp))
+            Spacer(modifier = Modifier.width(20.dp))
             Image(
                 painter = painterResource(id = R.drawable.booking),
                 contentDescription = null,
@@ -141,7 +159,7 @@ fun BookingForm(navController: NavController) {
                     .padding(10.dp)
                     .clickable { navController.navigate("Booking") }
             )
-            Spacer(modifier = Modifier.width(40.dp))
+            Spacer(modifier = Modifier.width(20.dp))
             Image(
                 painter = painterResource(id = R.drawable.schedule),
                 contentDescription = null,
@@ -149,6 +167,15 @@ fun BookingForm(navController: NavController) {
                     .size(60.dp)
                     .padding(10.dp)
                     .clickable { navController.navigate("jadwal") }
+            )
+            Spacer(modifier = Modifier.width(20.dp))
+            Image(
+                painter = painterResource(id = R.drawable.user),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(60.dp)
+                    .padding(10.dp)
+                    .clickable { navController.navigate("profile")}
             )
         }
     }
