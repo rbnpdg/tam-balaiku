@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "81570996053",
+    "project_id": "balaiku",
+    "storage_bucket": "balaiku.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81570996053:android:a0aa99637b4e20246699dc",
+        "android_client_info": {
+          "package_name": "com.rbn.loginbalaiku"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9iHoa9rJ4UbvxVrZ3l_jpbNKs4VpLNd8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

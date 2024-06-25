@@ -1,5 +1,7 @@
 package com.rbn.loginbalaiku
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -9,11 +11,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 @Composable
 fun SignUpForm(navController: NavController, modifier: Modifier = Modifier) {
@@ -21,9 +26,12 @@ fun SignUpForm(navController: NavController, modifier: Modifier = Modifier) {
     val username = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
+    val auth = FirebaseAuth.getInstance()
+    val database = FirebaseDatabase.getInstance().reference
+    val context = LocalContext.current
 
     Box(modifier = Modifier.fillMaxSize()) {
-        //Background
+        // Background
         Image(
             painter = painterResource(id = R.drawable.bglogin),
             contentDescription = null,
@@ -73,9 +81,35 @@ fun SignUpForm(navController: NavController, modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
-                    // Handle sign up logic here
-                    // After successful sign-up, navigate back to the login screen
-                    navController.navigate("login")
+                    Log.d("SignUpForm", "Sign up button clicked")
+                    auth.createUserWithEmailAndPassword(email.value, password.value)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Log.d("SignUpForm", "User created successfully")
+                                val userId = auth.currentUser?.uid ?: ""
+                                val user = User(name.value, username.value, email.value)
+                                database.child("users").child(userId).setValue(user)
+                                    .addOnCompleteListener { dbTask ->
+                                        if (dbTask.isSuccessful) {
+                                            Log.d("SignUpForm", "User data saved to database")
+                                            navController.navigate("login") {
+                                                popUpTo(navController.graph.startDestinationId) {
+                                                    inclusive = true
+                                                }
+                                            }
+                                            Toast.makeText(context, "Sign up successful!", Toast.LENGTH_SHORT).show()
+                                        } else {
+                                            val dbErrorMessage = dbTask.exception?.message
+                                            Log.e("SignUpForm", "Failed to save user data: $dbErrorMessage")
+                                            Toast.makeText(context, "Failed to save user data: $dbErrorMessage", Toast.LENGTH_LONG).show()
+                                        }
+                                    }
+                            } else {
+                                val errorMessage = task.exception?.message
+                                Log.e("SignUpForm", "Sign up failed: $errorMessage")
+                                Toast.makeText(context, "Sign up failed: $errorMessage", Toast.LENGTH_LONG).show()
+                            }
+                        }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -86,3 +120,5 @@ fun SignUpForm(navController: NavController, modifier: Modifier = Modifier) {
         }
     }
 }
+
+data class User(val name: String, val username: String, val email: String)
